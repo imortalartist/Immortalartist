@@ -244,6 +244,51 @@ a.btn.pd{display:flex}
 
 .newb{position:absolute;left:10px;bottom:10px;z-index:3;background:var(--or);color:#0b0b0b;font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px}
 .op{opacity:.6;margin-right:2px}
+
+/* ---- v11: offers & notes section ---- */
+.nts{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;margin:6px 0 14px}
+.nt{position:relative;background:#fff4e0;color:#3b2600;border-radius:6px 6px 16px 6px;padding:22px 18px 16px;box-shadow:0 8px 20px rgba(0,0,0,.12);border-left:5px solid var(--or);transform:rotate(-1deg);transition:transform .25s;animation:up .6s backwards}
+.nt:nth-child(even){transform:rotate(1deg)}
+.nt:hover{transform:rotate(0) translateY(-3px)}
+.nt b{display:block;font-family:'Bebas Neue',Poppins,sans-serif;font-weight:400;font-size:24px;letter-spacing:1.5px;color:#c26a00}
+.nt p{margin:4px 0 0;font-size:14px;line-height:1.55}
+.pin{position:absolute;top:-6px;right:16px;width:14px;height:14px;border-radius:50%;background:var(--or);box-shadow:0 2px 4px rgba(0,0,0,.3)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .nt{background:#2a1d08;color:#ffe9c6}:root:not([data-theme="light"]) .nt b{color:var(--or)}}
+:root[data-theme="dark"] .nt{background:#2a1d08;color:#ffe9c6}:root[data-theme="dark"] .nt b{color:var(--or)}
+
+/* ---- v12: banner slider, centered hero ---- */
+.hero{padding:60px 0 66px}
+.hero .wrap{grid-template-columns:minmax(0,1fr)!important;text-align:left}
+.hero h1{margin-left:0;margin-right:0;max-width:900px}
+.hero p{margin-left:0;margin-right:0}
+.hero .search{margin:0}
+.bn{position:relative;margin:26px 0 8px;border-radius:22px;overflow:hidden;background:#111;aspect-ratio:16/7;box-shadow:0 14px 40px rgba(0,0,0,.28);animation:up .8s backwards;border:1px solid var(--line)}
+@media(max-width:640px){.bn{border-radius:14px}.bn.hm{aspect-ratio:4/3}}
+.bnv{position:absolute;inset:0;touch-action:pan-y}
+.bs{position:absolute;inset:0;opacity:0;visibility:hidden;transform:translateX(3%);transition:opacity .9s ease,transform .9s cubic-bezier(.22,.9,.28,1),visibility .9s}
+.bs.on{opacity:1;visibility:visible;transform:none}
+.bl{position:absolute;inset:0;display:block}
+.bs img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.bs.on img{animation:bzoom 7s ease-out forwards}
+.bs:after{content:"";position:absolute;top:0;left:-60%;width:35%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.3),transparent);transform:skewX(-18deg);pointer-events:none}
+.bs.on:after{animation:bshine 1.8s .5s ease-out 1 forwards}
+.bcode{position:absolute;left:14px;bottom:14px;z-index:4;display:flex;align-items:center;gap:8px;background:rgba(11,11,11,.85);color:#fff;border:1.5px dashed var(--or);border-radius:30px;padding:6px 6px 6px 14px;font:inherit;font-size:13px;cursor:pointer;animation:bpulse 2.2s ease-in-out infinite}
+.bcode b{color:var(--or);letter-spacing:1.5px}
+.bcode em{font-style:normal;background:var(--or);color:#0b0b0b;font-weight:700;font-size:12px;padding:4px 12px;border-radius:20px}
+@media(max-width:640px){.bcode{left:8px;bottom:8px;font-size:11px;padding:4px 4px 4px 10px}.bcode em{padding:3px 9px}}
+.bna{position:absolute;top:50%;transform:translateY(-50%);z-index:5;width:40px;height:40px;border-radius:50%;border:0;background:rgba(11,11,11,.55);color:#fff;font-size:22px;line-height:1;cursor:pointer;opacity:0;transition:opacity .25s}
+.bna.prev{left:10px}.bna.next{right:10px}
+.bn:hover .bna{opacity:1}
+@media(hover:none){.bna{display:none}}
+.bnd{position:absolute;bottom:12px;right:14px;display:flex;gap:6px;z-index:5}
+.bdot{width:8px;height:8px;border-radius:8px;border:0;background:rgba(255,255,255,.55);padding:0;cursor:pointer;position:relative;overflow:hidden;transition:width .3s}
+.bdot.on{width:30px}
+.bdot.on:after{content:"";position:absolute;inset:0;background:var(--or);transform-origin:left;animation:bfill var(--bd,5s) linear forwards}
+.bn.single .bnd,.bn.single .bna{display:none}
+@keyframes bzoom{from{transform:scale(1.07)}to{transform:scale(1)}}
+@keyframes bshine{to{left:130%}}
+@keyframes bfill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes bpulse{0%,100%{box-shadow:0 0 0 0 rgba(250,152,0,.55)}50%{box-shadow:0 0 0 8px rgba(250,152,0,0)}}
 </style>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
@@ -259,13 +304,11 @@ a.btn.pd{display:flex}
 <p>Every file comes in Photoshop, Pixellab and CorelDRAW formats. Download free with ads, or go Premium for instant, ad-free access.</p>
 <div class="search"><input id="q" placeholder="Search files… (birthday, banner, logo)"><button type="button">Search</button></div>
 </div>
-<div class="offer" id="offer" style="display:none"><span class="lbl">LIMITED OFFER</span>
-<h3 id="obig"></h3><p id="otext"></p>
-<div class="code" id="ocode" style="display:none"><span id="cd"></span><button id="cp" type="button">Copy</button></div></div>
 </div></section>
 
 <div class="ticker" aria-hidden="true"><div class="tk"><span>PSD</span><span>★</span><span>PLP</span><span>★</span><span>CDR</span><span>★</span><span>FREE &amp; PREMIUM</span><span>★</span><span>PSD</span><span>★</span><span>PLP</span><span>★</span><span>CDR</span><span>★</span><span>FREE &amp; PREMIUM</span><span>★</span><span>PSD</span><span>★</span><span>PLP</span><span>★</span><span>CDR</span><span>★</span><span>FREE &amp; PREMIUM</span><span>★</span><span>PSD</span><span>★</span><span>PLP</span><span>★</span><span>CDR</span><span>★</span><span>FREE &amp; PREMIUM</span><span>★</span><span>PSD</span><span>★</span><span>PLP</span><span>★</span><span>CDR</span><span>★</span><span>FREE &amp; PREMIUM</span><span>★</span><span>PSD</span><span>★</span><span>PLP</span><span>★</span><span>CDR</span><span>★</span><span>FREE &amp; PREMIUM</span><span>★</span></div></div>
 <main class="wrap" id="files">
+<section class="bn" id="bn" style="display:none"><div class="bnv" id="bnv"></div><button class="bna prev" id="bnp" type="button" aria-label="Previous banner">‹</button><button class="bna next" id="bnn" type="button" aria-label="Next banner">›</button><div class="bnd" id="bnd"></div></section>
 <div class="mine" id="mine" style="display:none"></div>
 <!-- AD SLOT 1: paste your AdSense/Adsterra code inside the box below -->
 <div class="ad">Advertisement</div>
@@ -351,10 +394,18 @@ var CONFIG={
  RAZORPAY_KEY:"rzp_live_TxkKlgAeuDGBng",   // Razorpay Key ID only (never put the Secret here)
  WHATSAPP:"918552996332",                // WhatsApp number with country code, no + sign (empty to hide)
  INSTAGRAM:"https://www.instagram.com/imortalartist",  // optional, empty to hide
- SLIDE_COUNT:7,                         // how many latest files show in the 3D carousel
  NEWEST_FIRST:true,                      // newest row of your Sheet shows first
+ OFFERS_CSV_URL:"https://docs.google.com/spreadsheets/d/e/2PACX-1vQnSEtb06TQ53tJhrNGQiebNWpFqoGhbyP-1tkbJ2ZV-kC_2NlSFm_ARBigfLBum_rkDnxc1MvzmkMJ/pub?output=csv",                      // paste the link of your "offers" Sheet tab here (banners + coupons then come from the Sheet). If empty, BANNERS/COUPONS below are used
+ BANNERS:[                               // OFFER BANNERS: one { } block per banner. image = file name uploaded to GitHub (or a Google Drive link)
+  {image:"banner-1.jpg",code:"SUB10"},   // code is optional: shows a "Use code ... Copy" button on the banner
+  {image:"banner-2.jpg",code:"IMMORTAL20"}   // optional extras: mobile:"mobile-pic.jpg", link:"https://..."
+ ],
+ BANNER_SECONDS:5,                       // seconds each banner stays
+ COUPONS:[                               // codes that work at checkout (customer must type/paste the code)
+  {code:"SUB10",pct:10,until:""},        // until:"2026-12-31" = code stops working after this date, "" = no end
+  {code:"IMMORTAL20",pct:20,until:""}
+ ],
  FREE_WAIT:10,                           // seconds before free download
- OFFER:{on:true,big:"10% OFF",text:"On all Premium downloads this month",code:"IMMORTAL10",pct:10,auto:true}  // auto:true = this % is cut automatically from every Premium price (Sheet keeps the real price)
 };
 /* Sample files shown until you connect your Google Sheet */
 var SAMPLE=[
@@ -409,9 +460,11 @@ function openPay(it,price,drive){
  cur={title:it.title,price:offerPrice(price),drive:drive};pct=0;var au=cur.price<price;$('#cprow').style.display=(CONFIG.OFFER&&CONFIG.OFFER.on&&CONFIG.OFFER.auto&&CONFIG.OFFER.pct>0)?'none':'flex';
  $('#payT').textContent=it.title;$('#payP').textContent='₹'+cur.price;$('#coupon').value='';$('#cmsg').textContent=au?'Offer applied: '+CONFIG.OFFER.pct+'% off (was ₹'+price+')':'';
  $('#payForm').style.display='';$('#payOk').style.display='none';$('#mPay').classList.add('show')}
-function applyCoupon(){var O=CONFIG.OFFER,c=$('#coupon').value.trim().toUpperCase();
- if(O&&O.on&&O.code&&c===String(O.code).toUpperCase()){pct=Math.min(90,Math.max(1,O.pct||0));$('#cmsg').textContent='Coupon applied: '+pct+'% off'}
- else{pct=0;$('#cmsg').textContent=c?'Invalid coupon code':''}
+function applyCoupon(){var c=$('#coupon').value.trim().toUpperCase(),m=null,msg='';
+ CPN.forEach(function(x){if(x.code&&String(x.code).toUpperCase()===c)m=x});
+ var ud=m?pdate(m.until):null;if(m&&ud&&new Date()>ud){m=null;msg='This code has expired'}
+ if(m){pct=Math.min(90,Math.max(1,m.pct||0));$('#cmsg').textContent='Coupon applied: '+pct+'% off'}
+ else{pct=0;$('#cmsg').textContent=msg||(c?'Invalid coupon code':'')}
  $('#payP').textContent='₹'+price2()}
 function pay(){
  var k=CONFIG.RAZORPAY_KEY||'';
@@ -430,6 +483,50 @@ function share(it){var u=location.href.split('#')[0]+'#/f/'+slug(it.title),d={ti
 function focusCard(){if(!want)return;var c=document.querySelector('.card[data-slug="'+want+'"]');if(!c)return;want='';
  setTimeout(function(){c.scrollIntoView({behavior:'smooth',block:'center'});c.classList.add('hl');setTimeout(function(){c.classList.remove('hl')},4000)},300)}
 function goFile(sl){if(location.hash==='#/f/'+sl){want=sl;focusCard()}else location.hash='#/f/'+sl}
+var bi=0,btimer,BN=[],bx=null,BNL=[],CPN=[];
+function bsrc(u){u=(u||'').trim();if(!u)return '';var m=u.match(/\/d\/([\w-]+)/)||u.match(/[?&]id=([\w-]+)/);
+ if(m&&/drive\.google/.test(u))return 'https://drive.google.com/thumbnail?id='+m[1]+'&sz=w1600';
+ if(/^[\w-][\w\-.\/]*\.(png|jpe?g|webp|gif|avif)$/i.test(u)&&u.indexOf('..')<0)return u;
+ return safe(u)}
+function copyCode(c){var ok=function(){toast('Code '+c+' copied')};
+ if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(c).then(ok,function(){window.prompt('Copy this code',c)});else window.prompt('Copy this code',c)}
+function bgo(n,user){var s=document.querySelectorAll('.bs'),d=document.querySelectorAll('.bdot');if(!s.length)return;bi=(n+s.length)%s.length;
+ s.forEach(function(x,i){x.classList.toggle('on',i===bi)});
+ d.forEach(function(x,i){x.classList.remove('on');if(i===bi){void x.offsetWidth;x.classList.add('on')}});if(user)bauto()}
+function bauto(){clearInterval(btimer);if(BN.length>1)btimer=setInterval(function(){bgo(bi+1)},(CONFIG.BANNER_SECONDS||5)*1000)}
+function pdate(t){t=(t||'').trim();if(!t)return null;var m=t.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);if(m)return new Date(+m[1],m[2]-1,+m[3],23,59,59);
+ m=t.match(/^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{4})$/);if(m)return new Date(+m[3],m[2]-1,+m[1],23,59,59);return null}
+function loadOffers(){
+ if(!CONFIG.OFFERS_CSV_URL){BNL=CONFIG.BANNERS||[];CPN=CONFIG.COUPONS||[];renderBanners();return}
+ fetch(CONFIG.OFFERS_CSV_URL).then(function(r){return r.text()}).then(function(t){
+  var rows=parseCSV(t),h=rows[0].map(function(x){return x.trim().toLowerCase()}),now=new Date(),B=[],C=[];
+  rows.slice(1).forEach(function(r){var o={};h.forEach(function(k,i){o[k]=(r[i]||'').trim()});
+   if(!o.image&&!o.code)return;if(/^(no|off|0|false)$/i.test(o.active||''))return;
+   var u=pdate(o.until),exp=u&&now>u,pct=parseInt(String(o.pct||'').replace(/[^\d]/g,''),10)||0;
+   if(o.code&&pct)C.push({code:o.code,pct:pct,until:o.until});
+   if(o.image&&!exp)B.push({image:o.image,mobile:o.mobile,code:pct?o.code:'',link:o.link,alt:o.alt})});
+  BNL=B;CPN=C;renderBanners()}).catch(function(){BNL=[];CPN=[];renderBanners()})}
+function renderBanners(){
+ var L=BNL.filter(function(b){return bsrc(b.image)}),sec=$('#bn'),v=$('#bnv'),d=$('#bnd');
+ v.textContent='';d.textContent='';BN=L;sec.style.display=L.length?'':'none';if(!L.length)return;
+ sec.style.setProperty('--bd',(CONFIG.BANNER_SECONDS||5)+'s');
+ sec.classList.toggle('single',L.length<2);sec.classList.toggle('hm',L.some(function(b){return bsrc(b.mobile)}));
+ L.forEach(function(b,i){
+  var s=el('div','bs'+(i===0?' on':'')),lk=safe(b.link),w=el(lk?'a':'div','bl');
+  if(lk){w.href=lk;w.target='_blank';w.rel='noopener noreferrer nofollow'}
+  var pic=document.createElement('picture');
+  if(bsrc(b.mobile)){var so=document.createElement('source');so.media='(max-width:640px)';so.srcset=bsrc(b.mobile);pic.appendChild(so)}
+  var im=el('img');im.src=bsrc(b.image);im.alt=b.alt||'Offer banner';im.referrerPolicy='no-referrer';im.draggable=false;pic.appendChild(im);w.appendChild(pic);s.appendChild(w);
+  if(b.code){var cb=el('button','bcode');cb.type='button';cb.appendChild(el('span','','Use code'));cb.appendChild(el('b','',b.code));cb.appendChild(el('em','','Copy'));cb.onclick=function(){copyCode(b.code)};s.appendChild(cb)}
+  v.appendChild(s);
+  var dt=el('button','bdot'+(i===0?' on':''));dt.type='button';dt.setAttribute('aria-label','Banner '+(i+1));dt.onclick=function(){bgo(i,true)};d.appendChild(dt)});
+ bauto()}
+(function(){var v=$('#bnv'),hs=$('#bn');
+ v.addEventListener('pointerdown',function(e){bx=e.clientX});
+ v.addEventListener('pointerup',function(e){if(bx===null)return;var dx=e.clientX-bx;bx=null;if(Math.abs(dx)>45)bgo(bi+(dx<0?1:-1),true)});
+ v.addEventListener('pointercancel',function(){bx=null});
+ hs.addEventListener('mouseenter',function(){clearInterval(btimer)});hs.addEventListener('mouseleave',function(){bgo(bi,true)});
+ $('#bnp').onclick=function(){bgo(bi-1,true)};$('#bnn').onclick=function(){bgo(bi+1,true)}})();
 function renderMine(){var m=$('#mine'),k=Object.keys(bought).filter(function(t){return safe(bought[t].drive)});m.textContent='';
  if(!k.length){m.style.display='none';return}m.style.display='';m.appendChild(el('b','','✓ Your purchases:'));
  k.forEach(function(t){var a=el('a','mini',t+' ↗');a.href=safe(bought[t].drive);a.target='_blank';a.rel='noopener noreferrer nofollow';m.appendChild(a)})}
@@ -478,8 +575,7 @@ $('#bg').onclick=function(){$('#nav').classList.toggle('open')};
 $('#aboutYt').href=safe(CONFIG.YOUTUBE)||'#';
 cards();window.addEventListener('hashchange',route);
 route();
-var O=CONFIG.OFFER;if(O&&O.on){$('#offer').style.display='';$('#obig').textContent=O.big;$('#otext').textContent=O.text;
- if(O.code&&!O.auto){$('#ocode').style.display='';$('#cd').textContent=O.code;$('#cp').onclick=function(){var b=this;try{navigator.clipboard.writeText(O.code)}catch(x){}b.textContent='Copied!';setTimeout(function(){b.textContent='Copy'},1500)}}}
+loadOffers();
 if(CONFIG.SHEET_CSV_URL){fetch(CONFIG.SHEET_CSV_URL).then(function(r){return r.text()}).then(function(t){items=toItems(parseCSV(t));if(CONFIG.NEWEST_FIRST!==false)items.reverse();init()}).catch(function(){$('#grid').textContent='';$('#empty').textContent='Could not load files. Please refresh the page.';$('#empty').style.display='block'})}
 else{items=SAMPLE;init()}
 })();
