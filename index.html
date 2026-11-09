@@ -181,6 +181,69 @@ details summary{cursor:pointer;font-weight:600}
 details p{margin:8px 0 0;color:var(--muted);font-size:14px}
 textarea.fld{resize:vertical}
 a.btn.pd{display:flex}
+
+/* ---- v7: slideshow, share, highlight ---- */
+.hslide{position:relative;border-radius:22px;overflow:hidden;aspect-ratio:3/2;background:#111;border:2px solid var(--or);box-shadow:0 0 30px rgba(250,152,0,.25);animation:up .8s .3s backwards}
+.slides{position:absolute;inset:0}
+.slide{position:absolute;inset:0;opacity:0;transform:translateX(40px) scale(1.02);transition:opacity .8s,transform .8s;pointer-events:none}
+.slide.on{opacity:1;transform:none;pointer-events:auto}
+.slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.slide.on img{animation:kb 6s ease-out forwards}
+.slide:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.8) 0%,rgba(0,0,0,.05) 62%)}
+.slide.txt{background:radial-gradient(circle at 85% 15%,var(--or) 0,#0b0b0b 72%)}
+.scap{position:absolute;left:0;right:0;bottom:0;padding:18px 18px 36px;z-index:2;color:#fff}
+.scap h3{margin:6px 0 2px;font-family:'Bebas Neue',Poppins,sans-serif;font-weight:400;font-size:clamp(32px,9vw,50px);letter-spacing:1.5px;line-height:1}
+.scap p{margin:0 0 10px;font-size:13px;color:#e4e4e4}
+.sbadge{background:var(--or);color:#0b0b0b;font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px;display:inline-block}
+.slide.on .scap>*{animation:up .7s backwards}
+.slide.on .scap>*:nth-child(2){animation-delay:.12s}.slide.on .scap>*:nth-child(3){animation-delay:.24s}.slide.on .scap>*:nth-child(4){animation-delay:.36s}
+.btn.c2{display:inline-flex;width:auto;padding:8px 16px;font-size:13px}
+.dots{position:absolute;bottom:12px;left:0;right:0;display:flex;justify-content:center;gap:7px;z-index:3}
+.dot{width:8px;height:8px;border-radius:8px;border:0;background:rgba(255,255,255,.45);padding:0;cursor:pointer;transition:width .3s,background .3s}
+.dot.on{width:24px;background:var(--or)}
+.sa{position:absolute;top:50%;transform:translateY(-50%);z-index:3;border:0;background:rgba(0,0,0,.5);color:#fff;width:34px;height:34px;border-radius:50%;font-size:20px;cursor:pointer;line-height:1}
+.sa.prev{left:8px}.sa.next{right:8px}
+.shr{position:absolute;right:10px;top:10px;z-index:3;border:0;background:rgba(255,255,255,.92);color:#0b0b0b;font:inherit;font-size:11px;font-weight:700;padding:4px 11px;border-radius:20px;cursor:pointer}
+.card.hl{animation:hl 1.4s ease 3}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:#0b0b0b;color:#fff;padding:10px 18px;border-radius:30px;font-size:13px;opacity:0;pointer-events:none;transition:.3s;z-index:30;border:1px solid var(--or)}
+.toast.show{opacity:1;transform:translateX(-50%)}
+@keyframes kb{from{transform:scale(1)}to{transform:scale(1.09)}}
+@keyframes hl{0%,100%{box-shadow:0 0 0 rgba(250,152,0,0)}50%{box-shadow:0 0 0 4px var(--or),0 0 30px rgba(250,152,0,.6)}}
+
+/* ---- v8: wipe slideshow ---- */
+.slide{opacity:1;transform:none;clip-path:inset(0 0 0 100%);transition:clip-path .9s cubic-bezier(.77,0,.18,1);z-index:1}
+.slide.on{clip-path:inset(0);z-index:2}
+.slide:nth-child(even).on img{animation:kb2 6s ease-out forwards}
+.slide.txt .scap h3{font-size:clamp(38px,11vw,64px)}
+.scnt{position:absolute;top:12px;right:14px;z-index:3;color:#fff;font-family:'Bebas Neue',Poppins,sans-serif;font-size:18px;letter-spacing:2px;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.sprice{display:inline-block;background:rgba(255,255,255,.16);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.3);color:#fff;font-size:12px;font-weight:600;padding:4px 12px;border-radius:20px;margin:0 8px 8px 0}
+.prog{position:absolute;left:0;top:0;height:4px;width:0;background:var(--or);z-index:5}
+.prog.run{animation:prog 4.5s linear forwards}
+.hslide:hover .prog{animation-play-state:paused}
+@keyframes prog{to{width:100%}}
+@keyframes kb2{from{transform:scale(1.1) translateX(2%)}to{transform:scale(1)}}
+
+/* ---- v9: 3D coverflow ---- */
+.cfwrap{position:relative;color:#fff;user-select:none;animation:up .8s .3s backwards}
+.cflow{position:relative;height:335px;perspective:1100px;touch-action:pan-y;clip-path:inset(-30px 0 -30px 0)}
+.cf{position:absolute;left:19%;top:8px;width:62%;height:300px;border-radius:18px;overflow:hidden;background:#111;border:2px solid rgba(255,255,255,.14);box-shadow:0 18px 40px rgba(0,0,0,.6);transition:transform .75s cubic-bezier(.22,.9,.28,1),opacity .5s;cursor:pointer;will-change:transform}
+.cf.on{border-color:var(--or);box-shadow:0 0 0 1px var(--or),0 20px 50px rgba(250,152,0,.38)}
+.cf img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.cf.txt{background:radial-gradient(circle at 80% 15%,var(--or),#0b0b0b 72%);display:grid;place-items:center;padding:14px;text-align:center}
+.cf.txt em{font-style:normal;font-family:'Bebas Neue',Poppins,sans-serif;font-size:32px;letter-spacing:2px;line-height:1.05}
+.cf:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.4),transparent 45%);pointer-events:none}
+.cf.on:before{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.38),transparent);transform:skewX(-20deg);animation:sweep 3.6s ease-in-out infinite;z-index:3;pointer-events:none}
+.cfb{position:absolute;left:10px;top:10px;z-index:2}
+.cfwrap .sa{top:150px}
+.cfcap{text-align:center;min-height:118px;padding:8px 10px 0}
+.cfin{animation:up .55s}
+.cfcap h3{margin:0;font-family:'Bebas Neue',Poppins,sans-serif;font-weight:400;font-size:34px;letter-spacing:1.5px;line-height:1.05}
+.cfcap p{margin:2px 0 8px;font-size:13px;color:#cfcfcf}
+.cfwrap .dots{position:static;margin-top:8px}
+@media(max-width:480px){.cflow{height:318px}.cf{height:285px}.cfwrap .sa{top:140px}}
+
+.newb{position:absolute;left:10px;bottom:10px;z-index:3;background:var(--or);color:#0b0b0b;font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px}
+.op{opacity:.6;margin-right:2px}
 </style>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 </head>
@@ -206,7 +269,7 @@ a.btn.pd{display:flex}
 <div class="mine" id="mine" style="display:none"></div>
 <!-- AD SLOT 1: paste your AdSense/Adsterra code inside the box below -->
 <div class="ad">Advertisement</div>
-<div class="sec"><h2>Latest Files</h2><div class="filters" id="f1"></div></div>
+<div class="sec" id="latest"><h2>Latest Files</h2><div class="filters" id="f1"></div></div>
 <div class="grid" id="grid"><div class="empty" style="display:block">Loading files…</div></div>
 <div class="empty" id="empty">No files found.</div>
 <!-- AD SLOT 2 -->
@@ -267,7 +330,7 @@ a.btn.pd{display:flex}
 
 <div class="modal" id="mPay"><div class="box">
 <div id="payForm"><h2 id="payT"></h2><div class="price" id="payP"></div><div class="meta">All formats · instant · no ads</div><br>
-<div style="display:flex;gap:8px"><input class="fld" id="coupon" placeholder="Coupon code" style="margin:0"><button class="btn fr" id="apply" type="button" style="width:auto">Apply</button></div>
+<div id="cprow" style="display:flex;gap:8px"><input class="fld" id="coupon" placeholder="Coupon code" style="margin:0"><button class="btn fr" id="apply" type="button" style="width:auto">Apply</button></div>
 <div class="meta" id="cmsg" style="margin:8px 0;min-height:18px"></div>
 <button class="btn pd" id="payBtn" type="button" style="justify-content:center">Pay now</button></div>
 <div id="payOk" style="display:none"><h2>Payment successful ✓</h2><p class="meta" id="payId"></p>
@@ -278,6 +341,7 @@ a.btn.pd{display:flex}
 <div class="modal" id="mPol"><div class="box" style="text-align:left;max-height:80vh;overflow:auto">
 <h2 id="pt"></h2><div class="pol" id="pb"></div><button class="close" data-close>Close</button></div></div>
 
+<div class="toast" id="toast"></div>
 <script>
 /* ================= EDIT THIS SECTION ================= */
 var CONFIG={
@@ -287,8 +351,10 @@ var CONFIG={
  RAZORPAY_KEY:"rzp_live_TxkKlgAeuDGBng",   // Razorpay Key ID only (never put the Secret here)
  WHATSAPP:"918552996332",                // WhatsApp number with country code, no + sign (empty to hide)
  INSTAGRAM:"https://www.instagram.com/imortalartist",  // optional, empty to hide
+ SLIDE_COUNT:7,                         // how many latest files show in the 3D carousel
+ NEWEST_FIRST:true,                      // newest row of your Sheet shows first
  FREE_WAIT:10,                           // seconds before free download
- OFFER:{on:true,big:"20% OFF",text:"On all Premium downloads this month",code:"IMMORTAL20",pct:20}  // coupon works at checkout; code can be empty
+ OFFER:{on:true,big:"20% OFF",text:"On all Premium downloads this month",code:"IMMORTAL20",pct:20,auto:true}  // auto:true = this % is cut automatically from every Premium price (Sheet keeps the real price)
 };
 /* Sample files shown until you connect your Google Sheet */
 var SAMPLE=[
@@ -301,7 +367,7 @@ var SAMPLE=[
 ];
 /* ===================================================== */
 (function(){
-var $=function(s){return document.querySelector(s)},timer,cat='All',q='',items=[],cur=null,pct=0,bought={};
+var $=function(s){return document.querySelector(s)},timer,cat='All',q='',items=[],cur=null,pct=0,bought={},want='',SL=[],si=0,stimer,toastT;
 try{bought=JSON.parse(localStorage.getItem('ia_bought')||'{}')}catch(e){}
 function safe(u){try{var x=new URL((u||'').trim());return x.protocol==='https:'?x.href:''}catch(e){return ''}}
 function img(u){u=(u||'').trim();var m=u.match(/\/d\/([\w-]+)/)||u.match(/[?&]id=([\w-]+)/);if(m&&/drive\.google/.test(u))return 'https://drive.google.com/thumbnail?id='+m[1]+'&sz=w800';return safe(u)}
@@ -321,7 +387,7 @@ function render(){
   var fm=['psd','plp','cdr'].filter(function(k){return safe(it[k])}),buy=safe(it.drive),price=parseInt(it.price,10)||0;
   if(!fm.length&&!buy)return;n++;
   var sel=fm[0],card=el('div','card'),th=el('div','thumb'),im=img(it.image);
-  th.appendChild(el('span','cat',it.category||'Design'));
+  card.dataset.slug=slug(it.title);th.appendChild(el('span','cat',it.category||'Design'));var sb=el('button','shr','Share ⤴');sb.onclick=function(e){e.stopPropagation();share(it)};th.appendChild(sb);if(buy&&price&&offerPrice(price)<price)th.appendChild(el('span','newb','SALE −'+CONFIG.OFFER.pct+'%'));
   if(im){th.classList.add('img');var i=el('img');i.src=im;i.alt=it.title;i.loading='lazy';i.referrerPolicy='no-referrer';th.appendChild(i)}else th.appendChild(el('em','',it.title.toUpperCase()));
   var b=el('div','body');b.appendChild(el('h3','',it.title));
   b.appendChild(el('div','meta','Formats: '+(fm.length?fm.join(' · ').toUpperCase():'PSD · PLP · CDR')));
@@ -329,18 +395,19 @@ function render(){
   if(fm.length){fm.forEach(function(k){var x=el('button',k===sel?'on':'',k.toUpperCase());x.onclick=function(){sel=k;[].forEach.call(fmt.children,function(c){c.classList.remove('on')});x.classList.add('on')};fmt.appendChild(x)});b.appendChild(fmt);
    var fb=el('button','btn fr','Free Download ');fb.appendChild(el('small','','ads + wait'));fb.onclick=function(){openFree(it.title,sel,safe(it[sel]))};opts.appendChild(fb)}
   if(buy&&bought[it.title]){var bb=el('a','btn pd','Download Purchased ✓');bb.href=safe(bought[it.title].drive)||buy;bb.target='_blank';bb.rel='noopener noreferrer nofollow';opts.appendChild(bb)}
-  else if(buy&&price){var pb=el('button','btn pd','Premium ₹'+price+' ');pb.appendChild(el('small','','all formats · instant'));pb.onclick=function(){openPay(it,price,buy)};opts.appendChild(pb)}
+  else if(buy&&price){var fp=offerPrice(price),pb=el('button','btn pd','Premium ');if(fp<price){pb.appendChild(el('s','op','₹'+price));pb.appendChild(document.createTextNode(' '))}pb.appendChild(document.createTextNode('₹'+fp+' '));pb.appendChild(el('small','','all formats · instant'));pb.onclick=function(){openPay(it,price,buy)};opts.appendChild(pb)}
   b.appendChild(opts);card.style.animationDelay=(n*70)+'ms';card.appendChild(th);card.appendChild(b);g.appendChild(card)});
- $('#empty').style.display=n?'none':'block'}
+ $('#empty').style.display=n?'none':'block';focusCard()}
 function openFree(title,fmt,url){
  var dl=$('#dl'),cn=$('#cnt'),c=CONFIG.FREE_WAIT;clearInterval(timer);
  $('#fTitle').textContent=title+' ('+fmt.toUpperCase()+')';
  dl.classList.add('dis');dl.removeAttribute('href');dl.textContent='Please wait…';cn.textContent=c;$('#mFree').classList.add('show');
  timer=setInterval(function(){c--;cn.textContent=c>0?c:'✓';if(c<=0){clearInterval(timer);dl.href=url;dl.classList.remove('dis');dl.textContent='Download Now'}},1000)}
+function offerPrice(p){var O=CONFIG.OFFER||{};return(O.on&&O.auto&&O.pct>0)?Math.max(1,Math.round(p*(100-O.pct)/100)):p}
 function price2(){return Math.max(1,Math.round(cur.price*(100-pct)/100))}
 function openPay(it,price,drive){
- cur={title:it.title,price:price,drive:drive};pct=0;
- $('#payT').textContent=it.title;$('#payP').textContent='₹'+price;$('#coupon').value='';$('#cmsg').textContent='';
+ cur={title:it.title,price:offerPrice(price),drive:drive};pct=0;var au=cur.price<price;$('#cprow').style.display=(CONFIG.OFFER&&CONFIG.OFFER.on&&CONFIG.OFFER.auto&&CONFIG.OFFER.pct>0)?'none':'flex';
+ $('#payT').textContent=it.title;$('#payP').textContent='₹'+cur.price;$('#coupon').value='';$('#cmsg').textContent=au?'Offer applied: '+CONFIG.OFFER.pct+'% off (was ₹'+price+')':'';
  $('#payForm').style.display='';$('#payOk').style.display='none';$('#mPay').classList.add('show')}
 function applyCoupon(){var O=CONFIG.OFFER,c=$('#coupon').value.trim().toUpperCase();
  if(O&&O.on&&O.code&&c===String(O.code).toUpperCase()){pct=Math.min(90,Math.max(1,O.pct||0));$('#cmsg').textContent='Coupon applied: '+pct+'% off'}
@@ -355,6 +422,14 @@ function pay(){
   handler:function(r){bought[t]={drive:d,pid:r.razorpay_payment_id};try{localStorage.setItem('ia_bought',JSON.stringify(bought))}catch(e){}
    $('#payForm').style.display='none';$('#payOk').style.display='';var w=null;try{w=window.open(d,'_blank')}catch(e){}if(w){try{w.opener=null}catch(e){}}$('#payId').textContent='Payment ID: '+r.razorpay_payment_id+(w?' · Download opened in a new tab.':' · Tap the button below to download.');$('#payDl').href=d;render();renderMine()}}).open()}
 $('#apply').onclick=applyCoupon;$('#payBtn').onclick=pay;
+function slug(t){return String(t).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}
+function toast(m){var t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(toastT);toastT=setTimeout(function(){t.classList.remove('show')},2200)}
+function share(it){var u=location.href.split('#')[0]+'#/f/'+slug(it.title),d={title:it.title+' – Immortal Artist',text:'Check out this design file: '+it.title,url:u};
+ if(navigator.share){navigator.share(d).catch(function(){})}
+ else{try{navigator.clipboard.writeText(u);toast('Link copied')}catch(e){window.prompt('Copy this link',u)}}}
+function focusCard(){if(!want)return;var c=document.querySelector('.card[data-slug="'+want+'"]');if(!c)return;want='';
+ setTimeout(function(){c.scrollIntoView({behavior:'smooth',block:'center'});c.classList.add('hl');setTimeout(function(){c.classList.remove('hl')},4000)},300)}
+function goFile(sl){if(location.hash==='#/f/'+sl){want=sl;focusCard()}else location.hash='#/f/'+sl}
 function renderMine(){var m=$('#mine'),k=Object.keys(bought).filter(function(t){return safe(bought[t].drive)});m.textContent='';
  if(!k.length){m.style.display='none';return}m.style.display='';m.appendChild(el('b','','✓ Your purchases:'));
  k.forEach(function(t){var a=el('a','mini',t+' ↗');a.href=safe(bought[t].drive);a.target='_blank';a.rel='noopener noreferrer nofollow';m.appendChild(a)})}
@@ -373,8 +448,6 @@ function init(){
  var f=$('#f1');f.textContent='';cs.forEach(function(c){var b=el('button','chip'+(c===cat?' on':''),c);b.onclick=function(){cat=c;[].forEach.call(f.children,function(x){x.classList.toggle('on',x===b)});render()};f.appendChild(b)});render();renderMine()}
 $('#q').addEventListener('input',function(e){q=e.target.value.toLowerCase();render()});
 $('#yt').href=safe(CONFIG.YOUTUBE)||'#';$('#yr').textContent=new Date().getFullYear();
-var O=CONFIG.OFFER;if(O&&O.on){$('#offer').style.display='';$('#obig').textContent=O.big;$('#otext').textContent=O.text;
- if(O.code){$('#ocode').style.display='';$('#cd').textContent=O.code;$('#cp').onclick=function(){var b=this;try{navigator.clipboard.writeText(O.code)}catch(x){}b.textContent='Copied!';setTimeout(function(){b.textContent='Copy'},1500)}}}
 var POLP={
 privacy:["Privacy Policy",["Immortal Artist (“we”) respects your privacy. This website does not ask you to create an account and we do not store your personal data on our own servers.","Payments are processed by Razorpay. We never see or store your card, UPI or bank details. Razorpay handles them under its own privacy policy.","Free download files are hosted by third-party services, and this site may show ads from ad networks such as Google AdSense, which may use cookies to show relevant ads.","Your purchased downloads are remembered in your own browser storage on your device only.","If you contact us by email or WhatsApp, we use your details only to reply to you.","Privacy questions: "+CONFIG.EMAIL]],
 terms:["Terms of Use",["By using this website and downloading files you agree to these terms.","All designs are created by Immortal Artist. You may use them for your own personal and commercial design work, such as printing, social media and client projects.","You may not resell, redistribute, re-upload or share the original files (PSD, PLP, CDR) as your own product.","Delivery: all products are digital. Free files are available after the short countdown. Premium files are available instantly after successful payment through a download link.","Prices are in Indian Rupees (INR) and may change without notice. We may update these terms at any time.","Questions: "+CONFIG.EMAIL]],
@@ -384,6 +457,7 @@ var TITLES={home:'',about:'About – ',contact:'Contact – ',privacy:'Privacy P
 function route(){
  var h=location.hash.replace(/^#\/?/,'')||'home',sc='';
  if(h==='files'||h==='how'){sc=h;h='home'}
+ if(h.indexOf('f/')===0){want=h.slice(2).replace(/[^a-z0-9-]/g,'');h='home';sc='f';cat='All';q='';$('#q').value='';document.querySelectorAll('#f1 .chip').forEach(function(x,i){x.classList.toggle('on',i===0)});if(items.length)render()}
  if(!TITLES.hasOwnProperty(h))h='home';
  var pg=(h==='privacy'||h==='terms'||h==='refund')?'policy':h;
  document.querySelectorAll('[data-page]').forEach(function(p){p.style.display=p.dataset.page===pg?'':'none'});
@@ -404,7 +478,9 @@ $('#bg').onclick=function(){$('#nav').classList.toggle('open')};
 $('#aboutYt').href=safe(CONFIG.YOUTUBE)||'#';
 cards();window.addEventListener('hashchange',route);
 route();
-if(CONFIG.SHEET_CSV_URL){fetch(CONFIG.SHEET_CSV_URL).then(function(r){return r.text()}).then(function(t){items=toItems(parseCSV(t));init()}).catch(function(){$('#grid').textContent='';$('#empty').textContent='Could not load files. Please refresh the page.';$('#empty').style.display='block'})}
+var O=CONFIG.OFFER;if(O&&O.on){$('#offer').style.display='';$('#obig').textContent=O.big;$('#otext').textContent=O.text;
+ if(O.code&&!O.auto){$('#ocode').style.display='';$('#cd').textContent=O.code;$('#cp').onclick=function(){var b=this;try{navigator.clipboard.writeText(O.code)}catch(x){}b.textContent='Copied!';setTimeout(function(){b.textContent='Copy'},1500)}}}
+if(CONFIG.SHEET_CSV_URL){fetch(CONFIG.SHEET_CSV_URL).then(function(r){return r.text()}).then(function(t){items=toItems(parseCSV(t));if(CONFIG.NEWEST_FIRST!==false)items.reverse();init()}).catch(function(){$('#grid').textContent='';$('#empty').textContent='Could not load files. Please refresh the page.';$('#empty').style.display='block'})}
 else{items=SAMPLE;init()}
 })();
 </script>
