@@ -224,13 +224,14 @@ a.btn.pd{display:flex}
 @keyframes kb2{from{transform:scale(1.1) translateX(2%)}to{transform:scale(1)}}
 
 /* ---- v9: latest-files coverflow (auto from sheet) ---- */
-.cfw{position:relative;--h:290px;margin:28px 0 10px;user-select:none;animation:up .8s backwards}
+.cfw{position:relative;--h:340px;--ch:280px;margin:28px 0 10px;user-select:none;animation:up .8s backwards}
 .cfl{position:relative;height:var(--h);perspective:1100px;touch-action:pan-y;overflow:hidden}
-.cfc{position:absolute;left:50%;top:14px;width:min(340px,64%);aspect-ratio:4/3;border-radius:18px;overflow:hidden;background:#111;border:2px solid rgba(255,255,255,.14);box-shadow:0 16px 36px rgba(0,0,0,.35);cursor:pointer;will-change:transform,filter;transform:translateX(-50%) scale(.6);opacity:0;pointer-events:none;transition:transform .7s cubic-bezier(.22,.9,.28,1),filter .7s ease,opacity .6s ease,border-color .4s,box-shadow .4s}
+.cfc{position:absolute;left:50%;top:14px;height:var(--ch);width:calc(var(--ch)*var(--r,1.78));max-width:86%;border-radius:18px;overflow:hidden;background:#111;border:2px solid rgba(255,255,255,.14);box-shadow:0 16px 36px rgba(0,0,0,.35);cursor:pointer;will-change:transform,filter;transform:translateX(-50%) scale(.6);opacity:0;pointer-events:none;transition:transform .7s cubic-bezier(.22,.9,.28,1),filter .7s ease,opacity .6s ease,border-color .4s,box-shadow .4s}
 .cfc[data-p="0"]{transform:translateX(-50%);opacity:1;pointer-events:auto;z-index:3;filter:none;border-color:var(--or);box-shadow:0 0 0 1px var(--or),0 18px 44px rgba(250,152,0,.35)}
-.cfc[data-p="-1"]{transform:translateX(-128%) scale(.8) rotateY(24deg);opacity:1;pointer-events:auto;z-index:2;filter:blur(6px) brightness(.7)}
-.cfc[data-p="1"]{transform:translateX(28%) scale(.8) rotateY(-24deg);opacity:1;pointer-events:auto;z-index:2;filter:blur(6px) brightness(.7)}
-.cfc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.cfc[data-p="-1"]{transform:translateX(-120%) scale(.8) rotateY(24deg);opacity:1;pointer-events:auto;z-index:2;filter:blur(6px) brightness(.7)}
+.cfc[data-p="1"]{transform:translateX(20%) scale(.8) rotateY(-24deg);opacity:1;pointer-events:auto;z-index:2;filter:blur(6px) brightness(.7)}
+.cfc img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;display:block;pointer-events:none}
+.cfc img.bg{object-fit:cover;filter:blur(16px) brightness(.55);transform:scale(1.25)}
 .cfc.txt{background:radial-gradient(circle at 80% 15%,var(--or),#0b0b0b 72%);display:grid;place-items:center;padding:14px;text-align:center}
 .cfc.txt em{font-style:normal;color:#fff;font-family:'Bebas Neue',Poppins,sans-serif;font-size:30px;letter-spacing:2px;line-height:1.05}
 .cfc.on:before{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);animation:sweep 3.6s ease-in-out infinite;z-index:3;pointer-events:none}
@@ -243,7 +244,7 @@ a.btn.pd{display:flex}
 .cfw .dot{background:rgba(128,128,128,.45)}
 .cfw .dot.on{background:var(--or)}
 .cfw.single .sa,.cfw.single .dots{display:none}
-@media(max-width:640px){.cfw{--h:195px}.cfcap h3{font-size:26px}}
+@media(max-width:640px){.cfw{--h:175px;--ch:150px}.cfcap h3{font-size:26px}}
 @media(hover:none){.cfw .sa{display:none}}
 
 .newb{position:absolute;left:10px;bottom:10px;z-index:3;background:var(--or);color:#0b0b0b;font-size:11px;font-weight:800;padding:3px 10px;border-radius:20px}
@@ -544,7 +545,7 @@ function renderSlides(){
  tr.textContent='';dt.textContent='';sec.style.display=CF.length?'':'none';if(!CF.length)return;
  CF.forEach(function(it,i){
   var c=el('div','cfc'),im=img(it.image);
-  if(im){var g=el('img');g.src=im;g.alt=it.title;g.referrerPolicy='no-referrer';g.draggable=false;c.appendChild(g)}
+  if(im){var bg=el('img','bg');bg.src=im;bg.alt='';bg.referrerPolicy='no-referrer';bg.draggable=false;c.appendChild(bg);var g=el('img');g.onload=function(){if(g.naturalWidth&&g.naturalHeight)c.style.setProperty('--r',Math.min(2.4,Math.max(.6,g.naturalWidth/g.naturalHeight)).toFixed(3))};g.src=im;g.alt=it.title;g.referrerPolicy='no-referrer';g.draggable=false;c.appendChild(g)}
   else{c.classList.add('txt');c.appendChild(el('em','',it.title.toUpperCase()))}
   c.appendChild(el('span','cat',it.category||'Design'));
   c.onclick=function(){if(cfdrag)return;if(i===cfi)goFile(slug(it.title));else cfgo(i,true)};
